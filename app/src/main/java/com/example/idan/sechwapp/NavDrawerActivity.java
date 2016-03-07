@@ -1,30 +1,40 @@
 package com.example.idan.sechwapp;
 
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class NavDrawerActivity extends AppCompatActivity
+import com.example.idan.sechwapp.Fragments.Official_website;
+
+public class NavDrawerActivity extends Activity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    Official_website ow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
+        toolbar.setTitle("Madridista");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+//        ow = new Official_website();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.official_site_wv,ow).commit();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
@@ -66,6 +76,10 @@ public class NavDrawerActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
+
+
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -74,7 +88,11 @@ public class NavDrawerActivity extends AppCompatActivity
         } else if (id == R.id.players) {
 
         } else if (id == R.id.official_website) {
-
+            Official_website ow = new Official_website();
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment, ow);
+            fragmentTransaction.commit();
         } else if (id == R.id.twitter) {
 
         } else if (id == R.id.history) {

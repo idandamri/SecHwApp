@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.webkit.WebViewFragment;
 
 /**
@@ -28,10 +29,18 @@ public class Official_website extends WebViewFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
+        WebView wv1 = getWebView();
+        wv1.setWebViewClient(new WebViewClient());
+        wv1.getSettings().setJavaScriptEnabled(true);
+        String link = "http://www.google.com";
+        wv1.loadUrl(link);
 
-        WebView wv = getWebView();
-        wv.loadUrl("http://www.realmadrid.com");
-        wv.getSettings().setJavaScriptEnabled(true);
+//        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+//        Bundle extras = new Bundle();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//            extras.putBinder(EXTRA_CUSTOM_TABS_SESSION,null);
+//        }
+//        intent.putExtras(extras);
 
 //        wv.setWebViewClient(new WebViewClient() {
 //            @Override
@@ -40,8 +49,9 @@ public class Official_website extends WebViewFragment {
 //                return false;
 //            }
 //        });
-        return wv;
+        return view;
     }
+
 
 
 }

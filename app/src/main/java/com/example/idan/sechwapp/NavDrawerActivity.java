@@ -1,8 +1,6 @@
 package com.example.idan.sechwapp;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,6 +9,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.example.idan.sechwapp.Fragments.Official_website;
 
@@ -18,14 +18,24 @@ public class NavDrawerActivity extends Activity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Official_website ow;
+    WebView wv1;
+    String link;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_drawer);
+        init();
+    }
+
+    private void init() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
         toolbar.setTitle("Madridista");
+
+        wv1 = (WebView) findViewById(R.id.main_web_view);
+        wv1.setWebViewClient(new WebViewClient());
+        wv1.getSettings().setJavaScriptEnabled(true);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,13 +98,17 @@ public class NavDrawerActivity extends Activity
         } else if (id == R.id.players) {
 
         } else if (id == R.id.official_website) {
-            Official_website ow = new Official_website();
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment, ow);
-            fragmentTransaction.commit();
-        } else if (id == R.id.twitter) {
+            link = "http://www.realmadrid.com/";
+            wv1.loadUrl(link);
+//            Official_website ow = new Official_website();
+//            FragmentManager fm = getFragmentManager();
+//            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment, ow);
+//            fragmentTransaction.commit();
 
+        } else if (id == R.id.twitter) {
+            link = "https://twitter.com/realmadrid";
+            wv1.loadUrl(link);
         } else if (id == R.id.history) {
 
         } else if (id == R.id.titles) {
@@ -102,7 +116,8 @@ public class NavDrawerActivity extends Activity
         }else if (id == R.id.future_games) {
 
         }else if (id == R.id.facebook) {
-
+            link = "https://www.facebook.com/RealMadrid/";
+            wv1.loadUrl(link);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
